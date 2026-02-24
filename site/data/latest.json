@@ -1,0 +1,25 @@
+{
+  "latest_date": "2026-01-01",
+  "latest_prices": [
+    {
+      "item": "oil",
+      "price": 260.0
+    },
+    {
+      "item": "rice",
+      "price": 140.0
+    }
+  ],
+  "top_movers": [
+    {
+      "item": "oil",
+      "pct_change": 36.8421052631579,
+      "price": 260.0
+    },
+    {
+      "item": "rice",
+      "pct_change": 16.666666666666675,
+      "price": 140.0
+    }
+  ]
+}

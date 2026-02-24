@@ -1,0 +1,12 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Hugo generated output
+site/public/
+site/resources/
+
+# OS clutter
+.DS_Store
+Thumbs.db

@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Community Price Watch</title>
+</head>
+<body>
+  <h1>Community Price Watch</h1>
+
+  {{/* Read JSON from /assets/data/latest.json */}}
+  {{ $raw := resources.Get "data/latest.json" }}
+
+  {{ if not $raw }}
+    <p><b>Error:</b> Could not find <code>assets/data/latest.json</code>.</p>
+    <p>Fix: make sure the file exists at <code>site\assets\data\latest.json</code>.</p>
+  {{ else }}
+    {{ $d := $raw | transform.Unmarshal }}
+
+    <p><b>Latest date:</b> {{ $d.latest_date }}</p>
+
+    <h2>Latest Prices</h2>
+    <ul>
+      {{ range $d.latest_prices }}
+        <li>{{ .item }}: {{ .price }}</li>
+      {{ end }}
+    </ul>
+
+    <h2>Top Movers</h2>
+    <ul>
+      {{ range $d.top_movers }}
+        <li>{{ .item }}: {{ printf "%.1f" .pct_change }}% (price {{ .price }})</li>
+      {{ end }}
+    </ul>
+  {{ end }}
+
+</body>
+</html>
