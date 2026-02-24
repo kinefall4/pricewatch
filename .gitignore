@@ -10,3 +10,15 @@ site/resources/
 # OS clutter
 .DS_Store
 Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+
+# Generated data output
+site/assets/data/latest.json
+
+# Terraform
+infra/.terraform/
+infra/terraform.tfstate
+infra/terraform.tfstate.*
