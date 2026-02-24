@@ -25,6 +25,19 @@
       {{ end }}
     </ul>
 
+<h2>Shock Alerts (≥ {{ $d.shock_threshold_pct }}%)</h2>
+{{ if gt (len $d.shock_alerts) 0 }}
+  <ul>
+    {{ range $d.shock_alerts }}
+      <li>
+        ⚠️ {{ .item }}: {{ printf "%.1f" .pct_change }}% ({{ .direction }}) — price {{ .price }}
+      </li>
+    {{ end }}
+  </ul>
+{{ else }}
+  <p>No shock alerts for the latest period.</p>
+{{ end }}
+
     <h2>Top Movers</h2>
     <ul>
       {{ range $d.top_movers }}
