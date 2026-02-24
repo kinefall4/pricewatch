@@ -3,64 +3,77 @@
 <head>
   <meta charset="utf-8">
   <title>Community Price Watch</title>
-<link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
   <div class="container">
-    <header>
-      <div>
-        <h1>Community Price Watch</h1>
-        <div class="meta">Automated community price report • generated from data</div>
-      </div>
-      <div class="badge">Latest: {{ $d.latest_date }}</div>
-    </header>
 
-    <div class="grid">
-      <section class="card">
-        <h2>Shock Alerts (≥ {{ $d.shock_threshold_pct }}%)</h2>
-        {{ if gt (len $d.shock_alerts) 0 }}
+    {{/* Load JSON from /assets/data/latest.json and define $d */}}
+    {{ $raw := resources.Get "data/latest.json" }}
+    {{ if not $raw }}
+      <div class="card">
+        <h2>Error</h2>
+        <p class="meta">Could not find <code>assets/data/latest.json</code>. Make sure your pipeline generates it.</p>
+      </div>
+    {{ else }}
+      {{ $d := $raw | transform.Unmarshal }}
+
+      <header>
+        <div>
+          <h1>Community Price Watch</h1>
+          <div class="meta">Automated community price report • generated from data</div>
+        </div>
+        <div class="badge">Latest: {{ $d.latest_date }}</div>
+      </header>
+
+      <div class="grid">
+        <section class="card">
+          <h2>Shock Alerts (≥ {{ $d.shock_threshold_pct }}%)</h2>
+          {{ if gt (len $d.shock_alerts) 0 }}
+            <ul>
+              {{ range $d.shock_alerts }}
+                <li><span class="badge warn">⚠ Shock</span> {{ .item }}: {{ printf "%.1f" .pct_change }}% ({{ .direction }}) — price {{ .price }}</li>
+              {{ end }}
+            </ul>
+          {{ else }}
+            <small>No shock alerts for the latest period.</small>
+          {{ end }}
+        </section>
+
+        <section class="card">
+          <h2>Latest Prices</h2>
           <ul>
-            {{ range $d.shock_alerts }}
-              <li><span class="badge warn">⚠ Shock</span> {{ .item }}: {{ printf "%.1f" .pct_change }}% ({{ .direction }}) — price {{ .price }}</li>
+            {{ range $d.latest_prices }}
+              <li>{{ .item }}: {{ .price }}</li>
             {{ end }}
           </ul>
-        {{ else }}
-          <small>No shock alerts for the latest period.</small>
-        {{ end }}
-      </section>
+        </section>
 
-      <section class="card">
-        <h2>Latest Prices</h2>
-        <ul>
-          {{ range $d.latest_prices }}
-            <li>{{ .item }}: {{ .price }}</li>
-          {{ end }}
-        </ul>
-      </section>
+        <section class="card">
+          <h2>Top Movers</h2>
+          <ul>
+            {{ range $d.top_movers }}
+              <li>{{ .item }}: {{ printf "%.1f" .pct_change }}% (price {{ .price }})</li>
+            {{ end }}
+          </ul>
+        </section>
 
-      <section class="card">
-        <h2>Top Movers</h2>
-        <ul>
-          {{ range $d.top_movers }}
-            <li>{{ .item }}: {{ printf "%.1f" .pct_change }}% (price {{ .price }})</li>
-          {{ end }}
-        </ul>
-      </section>
+        <section class="card">
+          <h2>About</h2>
+          <p class="meta">
+            This site is automatically generated and deployed via CI/CD. Any community can reuse it by replacing the input CSV.
+          </p>
+          <p class="meta">
+            <b>Data note:</b> Prices vary by location/time. This is an informational tool.
+          </p>
+        </section>
+      </div>
 
-      <section class="card">
-        <h2>About</h2>
-        <p class="meta">
-          This site is automatically generated and deployed via CI/CD. Any community can reuse it by replacing the input CSV.
-        </p>
-        <p class="meta">
-          <b>Data note:</b> Prices vary by location/time. This is an informational tool.
-        </p>
-      </section>
-    </div>
+      <div class="footer">
+        Built with Hugo + automated pipeline (CodeBuild → S3). Source &amp; deployment instructions are in the GitHub repo.
+      </div>
 
-    <div class="footer">
-      Built with Hugo + automated pipeline (CodeBuild → S3). Source &amp; deployment instructions are in the GitHub repo.
-    </div>
+    {{ end }}
   </div>
 </body>
 </html>
