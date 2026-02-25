@@ -1,5 +1,14 @@
 {
   "latest_date": "2026-01-01",
+  "shock_threshold_pct": 20.0,
+  "shock_alerts": [
+    {
+      "item": "oil",
+      "pct_change": 36.8421052631579,
+      "price": 260.0,
+      "direction": "up"
+    }
+  ],
   "latest_prices": [
     {
       "item": "oil",
@@ -7,19 +16,19 @@
     },
     {
       "item": "rice",
-      "price": 200.0
+      "price": 140.0
     }
   ],
   "top_movers": [
     {
-      "item": "rice",
-      "pct_change": 66.66666666666667,
-      "price": 200.0
-    },
-    {
       "item": "oil",
       "pct_change": 36.8421052631579,
       "price": 260.0
+    },
+    {
+      "item": "rice",
+      "pct_change": 16.666666666666675,
+      "price": 140.0
     }
   ]
 }
