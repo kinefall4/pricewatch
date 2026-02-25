@@ -9,9 +9,9 @@ An automated price-reporting and monitoring system that tracks price movements, 
 
 ## Problem
 
-Price volatility — especially in essential goods — is a practical concern that affects consumers, community organizations, and small businesses. Existing tools for tracking price changes are either expensive, require manual effort, or are not accessible to non-technical users.
+Price volatility especially in essential goods is a concern that affects consumers, community organizations, and small businesses. Existing tools for tracking price changes are either expensive, require manual effort, or are not accessible to non-technical users.
 
-Community Price Watch addresses this by automating the full pipeline from raw price data to a live, publicly accessible report — with no manual intervention required after a data update is committed.
+Community Price Watch addresses this by automating the full pipeline from raw price data to a live, publicly accessible report, with no manual intervention required after a data update is committed.
 
 ---
 
