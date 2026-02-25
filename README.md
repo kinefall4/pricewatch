@@ -3,6 +3,7 @@
 An automated price-reporting and monitoring system that tracks price movements, flags significant changes, and publishes results continuously via a cloud-native CI/CD pipeline.
 
 **Live site:** http://pricewatch-kinefall4-534aca22.s3-website-eu-west-1.amazonaws.com  
+**Demo: https://youtu.be/AnyGUS1WN3U
 **Repository:** https://github.com/kinefall4/pricewatch
 
 ---
